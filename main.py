@@ -1,15 +1,13 @@
-import subprocess
+import runpy
 import sys
+from pathlib import Path
 
 
-if __name__ == "__main__":
+project_root = Path(__file__).resolve().parent
+if str(project_root) not in sys.path:
+    sys.path.insert(0, str(project_root))
 
-    subprocess.run(
-        [
-            sys.executable,
-            "-m",
-            "streamlit",
-            "run",
-            "ui/ui.py"
-        ]
-    )
+runpy.run_path(
+    str(project_root / "ui" / "ui.py"),
+    run_name="__main__"
+)
